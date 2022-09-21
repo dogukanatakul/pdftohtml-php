@@ -11,14 +11,19 @@ Please see how to use below, since it's really upgraded and things in this packa
 When you are in your active directory apps, you can just run this command to add this package on your app
 
 ```
-	composer require gufy/pdftohtml-php:~2
+"repositories": [
+        {
+            "url": "https://github.com/dogukanatakul/pdftohtml-php.git",
+            "type": "git"
+        }
+    ],
 ```
 
 Or add this package to your `composer.json`
 
 ```json
 {
-	"gufy/pdftohtml-php":"~2"
+	"dogukanatakul/pdftohtml-php":"*"
 }
 ```
 
