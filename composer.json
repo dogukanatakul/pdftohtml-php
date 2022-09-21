@@ -10,9 +10,14 @@
     ],
     "minimum-stability": "dev",
     "require": {
-        "paquettg/php-html-parser": "~1"
+        "dogukanatakul/php-html-parser": "*"
     },
-
+    "repositories": [
+        {
+            "url": "https://github.com/dogukanatakul/php-html-parser.git",
+            "type": "git"
+        }
+    ],
     "autoload": {
         "psr-0": {
             "Gufy": "src"
