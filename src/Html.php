@@ -61,7 +61,7 @@ class Html extends Dom
             file_put_contents($base_path . '-' . $i . '.html', $content);
             $contents[$i] = file_get_contents($base_path . '-' . $i . '.html');
         }
-        $this->contents = array_values($contents);
+        $this->contents = $contents;
         $this->goToPage(1);
     }
 
