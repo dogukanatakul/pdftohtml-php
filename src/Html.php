@@ -61,7 +61,7 @@ class Html extends Dom
             file_put_contents($base_path . '-' . $i . '.html', $content);
             $contents[$i] = file_get_contents($base_path . '-' . $i . '.html');
         }
-        $this->contents = $contents;
+        $this->contents = array_values($contents);
         $this->goToPage(1);
     }
 
@@ -70,6 +70,7 @@ class Html extends Dom
         if ($page > count($this->contents))
             throw new \Exception("You're asking to go to page {$page} but max page of this document is " . count($this->contents));
         $this->current_page = $page;
+
         return $this->load($this->contents[$page]);
     }
 
