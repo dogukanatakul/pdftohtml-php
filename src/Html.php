@@ -13,7 +13,7 @@ class Html extends Dom
 
     protected $default_options = [
         'singlePage' => true,
-        'noFrames'   => false,
+        'noFrames' => false,
     ];
 
     public function __construct($pdf_file, $options = [])
@@ -37,16 +37,16 @@ class Html extends Dom
         $pages = $info->getPages();
 
         $random_dir = uniqid();
-        $outputDir = Config::get('pdftohtml.output', dirname(__FILE__).'/../output/'.$random_dir);
+        $outputDir = Config::get('pdftohtml.output', dirname(__FILE__) . '/../output/' . $random_dir);
         if (!file_exists($outputDir))
             mkdir($outputDir, 0777, true);
         $pdf->setOutputDirectory($outputDir);
         $pdf->generate();
         $fileinfo = pathinfo($pdf_file);
-        $base_path = $pdf->outputDir.'/'.$fileinfo['filename'];
+        $base_path = $pdf->outputDir . '/' . $fileinfo['filename'];
         $contents = [];
         for ($i = 1; $i <= $pages; $i++) {
-            $content = file_get_contents($base_path.'-'.$i.'.html');
+            $content = file_get_contents($base_path . '-' . $i . '.html');
             $content = str_replace("Â", "", $content);
             if ($this->inlineCss()) {
                 $dom = new DOMDocument();
@@ -58,8 +58,8 @@ class Html extends Dom
                 $body = $xpath->query('//body')->item(0);
                 $content = $body instanceof DOMNode ? $dom->saveHTML($body) : 'something failed';
             }
-            file_put_contents($base_path.'-'.$i.'.html', $content);
-            $contents[ $i ] = file_get_contents($base_path.'-'.$i.'.html');
+            file_put_contents($base_path . '-' . $i . '.html', $content);
+            $contents[$i] = file_get_contents($base_path . '-' . $i . '.html');
         }
         $this->contents = $contents;
         $this->goToPage(1);
@@ -68,15 +68,14 @@ class Html extends Dom
     public function goToPage($page = 1)
     {
         if ($page > count($this->contents))
-            throw new \Exception("You're asking to go to page {$page} but max page of this document is ".count($this->contents));
+            throw new \Exception("You're asking to go to page {$page} but max page of this document is " . count($this->contents));
         $this->current_page = $page;
-
-        return $this->load($this->contents[ $page ]);
+        return $this->load($this->contents[$page]);
     }
 
     public function raw($page = 1)
     {
-        return $this->contents[ $page ];
+        return $this->contents[$page];
     }
 
     public function getTotalPages()
