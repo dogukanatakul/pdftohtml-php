@@ -17,7 +17,6 @@
         "phpunit/phpunit":"~4",
         "satooshi/php-coveralls": "^1.0"
     },
-
     "autoload": {
         "psr-0": {
             "Gufy": "src"
